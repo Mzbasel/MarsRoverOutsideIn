@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,58 +18,59 @@ import static org.mockito.Mockito.verify;
 class MarsRoverShould {
 
     private MarsRover marsRover;
-    @Mock
-    private CommandParser commandParser;
+    private String commands;
+    private List<CommandType> commandTypeList;
     @Mock
     private CommandFactory commandFactory;
     @Mock
-    private Command command;
+    private CommandParser commandParser;
 
     @BeforeEach
     public void setUp(){
-        marsRover = new MarsRover(commandParser, commandFactory, command);
+        marsRover = new MarsRover(commandParser, commandFactory);
+        commandTypeList = new ArrayList<>();
     }
 
     @Test
     public void parse_string_command_to_enum(){
         //given
-        String command = "R";
-
-        //when
-        marsRover.execute(command);
-
-        //then
-        then(commandParser).should().parse(command);
-    }
-
-    @Test
-    public void call_command_factory_return_commands_to_execute(){
-        //given
-        String command = "R";
-        List<CommandType> commandTypeList = List.of(CommandType.ROTATE_RIGHT);
-        given(commandParser.parse(command)).willReturn(commandTypeList);
-
-        //when
-        marsRover.execute(command);
-
-        //then
-        then(commandFactory).should().createCommand(commandTypeList);
-    }
-
-    @Test
-    public void execute_commands_and_return_the_final_grid(){
-        //given
-        String commands = "R";
-        List<CommandType> commandTypeList = List.of(CommandType.ROTATE_RIGHT);
-        List<Command> commandList = List.of(new RotateRight());
-        given(commandParser.parse(commands)).willReturn(commandTypeList);
-        given(commandFactory.createCommand(commandTypeList)).willReturn(commandList);
+        commands = "R";
 
         //when
         marsRover.execute(commands);
 
         //then
-        then(command).should().execute();
+        then(commandParser).should().parse(commands);
+    }
+
+    @Test
+    public void get_the_list_of_command_type_then_execute_the_commands(){
+        //given
+        commands = "R";
+        commandTypeList = List.of(CommandType.ROTATE_RIGHT);
+        given(commandParser.parse(commands)).willReturn(commandTypeList);
+
+        //when
+        marsRover.execute(commands);
+
+        //then
+        then(commandFactory).should().run(commandTypeList);
+    }
+
+    @Test
+    public void get_the_list_of_command_type_and_execute_the_commands_then_return_the_final_grid(){
+        //given
+        commands = "R";
+        commandTypeList = List.of(CommandType.ROTATE_RIGHT);
+        Grid expectedGrid = new Grid("East", 0, 0);
+        given(commandParser.parse(commands)).willReturn(commandTypeList);
+        given(commandFactory.run(commandTypeList)).willReturn(expectedGrid);
+
+        //when
+        Grid actualGrid = marsRover.execute(commands);
+
+        //then
+        assertEquals(expectedGrid, actualGrid);
     }
 
 }

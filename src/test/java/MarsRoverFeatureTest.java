@@ -3,16 +3,15 @@ import org.junit.jupiter.api.Test;
 
 public class MarsRoverFeatureTest {
 
-    CommandParser commandParser = new CommandParser();
+    private MarsRover marsRover;
 
-    CommandFactory commandFactory = new CommandFactory();
-
-    private Command command = null;
+    public MarsRoverFeatureTest(MarsRover marsRover) {
+        this.marsRover = marsRover;
+    }
 
     @Test
     public void rover_should_move_and_rotate(){
         String commands = "RRLMML";
-        MarsRover marsRover = new MarsRover(commandParser, commandFactory, command);
 
         Grid actualGrid = marsRover.execute(commands);
 
