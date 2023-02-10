@@ -62,7 +62,7 @@ class MarsRoverShould {
         //given
         commands = "R";
         commandTypeList = List.of(CommandType.ROTATE_RIGHT);
-        Grid expectedGrid = new Grid("East", 0, 0);
+        Grid expectedGrid = new Grid(Direction.EAST, new Coordinates(0,0));
         given(commandParser.parse(commands)).willReturn(commandTypeList);
         given(commandFactory.run(commandTypeList)).willReturn(expectedGrid);
 

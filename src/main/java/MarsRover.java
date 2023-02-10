@@ -1,8 +1,8 @@
 import java.util.List;
 
 public class MarsRover {
-    private CommandParser commandParser;
-    private CommandFactory commandFactory;
+    private final CommandParser commandParser;
+    private final CommandFactory commandFactory;
 
     public MarsRover(CommandParser commandParser, CommandFactory commandFactory) {
         this.commandParser = commandParser;

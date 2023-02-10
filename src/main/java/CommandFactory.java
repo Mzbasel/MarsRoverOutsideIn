@@ -1,22 +1,20 @@
 import java.util.List;
+import java.util.Map;
 
 public class CommandFactory {
-
-    private Command command;
     private Grid grid;
+    private final Map<CommandType, Command> commands;
 
-    public CommandFactory(Command command) {
-        this.command = command;
-        grid = new Grid("North", 0, 0);
+    public CommandFactory() {
+        grid = new Grid(Direction.NORTH, new Coordinates(0,0));
+        commands = Map.of(CommandType.ROTATE_RIGHT, new RotateRight(),
+                CommandType.ROTATE_LEFT, new RotateLeft(),
+                CommandType.MOVE, new Move());
     }
 
     public Grid run(List<CommandType> commandTypeList) {
         for (CommandType commandType: commandTypeList) {
-            switch (commandType){
-                case ROTATE_RIGHT: command = new RotateRight(); break;
-                case ROTATE_LEFT: command = new RotateLeft(); break;
-            }
-            grid = command.execute(grid);
+            grid = commands.get(commandType).execute(grid);
         }
         return grid;
     }

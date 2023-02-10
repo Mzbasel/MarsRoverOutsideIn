@@ -4,9 +4,13 @@ import org.junit.jupiter.api.Test;
 public class MarsRoverFeatureTest {
 
     private MarsRover marsRover;
+    private CommandFactory commandFactory;
+    private CommandParser commandParser;
 
-    public MarsRoverFeatureTest(MarsRover marsRover) {
-        this.marsRover = marsRover;
+    public MarsRoverFeatureTest() {
+        commandFactory = new CommandFactory();
+        commandParser = new CommandParser();
+        marsRover = new MarsRover(commandParser, commandFactory);
     }
 
     @Test
@@ -15,7 +19,7 @@ public class MarsRoverFeatureTest {
 
         Grid actualGrid = marsRover.execute(commands);
 
-        Grid expectedGrid = new Grid("North", 2,0);
+        Grid expectedGrid = new Grid(Direction.NORTH, new Coordinates(2,0));
 
         Assertions.assertEquals(expectedGrid, actualGrid);
     }
