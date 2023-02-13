@@ -37,4 +37,15 @@ public class MarsRoverFeatureShould {
         assertEquals(EncounteredObstacleException.class, exception.getClass());
         assertEquals("o:northCoordinate[X=2, Y=0]", exception.getMessage());
     }
+
+    @Test
+    void wrap_up() {
+        String commands = "RMMLMMMMMLMMMM";
+
+        Grid actualGrid = marsRover.execute(commands);
+
+        Grid expectedGrid = new Grid(Direction.WEST, new Coordinate(0,5));
+
+        assertEquals(expectedGrid, actualGrid);
+    }
 }

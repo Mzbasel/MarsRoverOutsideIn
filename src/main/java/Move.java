@@ -15,14 +15,10 @@ public class Move implements Command {
         this.grid = grid;
         Grid result = new Grid(grid.direction(), coordinates());
         if(obstacle != null) {
-            if (isObstacle(result))
+            if (result.isObstacle(obstacle))
                 throw new EncounteredObstacleException(grid);
         }
         return result;
-    }
-
-    private boolean isObstacle(Grid result) {
-        return result.coordinate().X() == obstacle.x() && result.coordinate().Y() == obstacle.y();
     }
 
     private Coordinate coordinates() {
