@@ -34,7 +34,7 @@ class CommandFactoryShould {
     @ParameterizedTest
     @MethodSource("getListOfRotateRightCommands")
     public void run_the_rotate_right_command_then_return_expected_grid(List<CommandType> commandTypeList, Direction direction){
-        expectedGrid = new Grid(direction,  new Coordinates(0,0));
+        expectedGrid = new Grid(direction,  new Coordinate(0,0));
 
         actualGrid = commandFactory.run(commandTypeList);
 
@@ -53,7 +53,7 @@ class CommandFactoryShould {
     @ParameterizedTest
     @MethodSource("getListOfRotateLeftCommands")
     public void run_the_rotate_left_command_then_return_expected_grid(List<CommandType> commandTypeList, Direction direction){
-        expectedGrid = new Grid(direction, new Coordinates(0,0));
+        expectedGrid = new Grid(direction, new Coordinate(0,0));
 
         actualGrid = commandFactory.run(commandTypeList);
 
@@ -62,10 +62,19 @@ class CommandFactoryShould {
 
     @Test
     void move() {
-        expectedGrid = new Grid(Direction.NORTH, new Coordinates(0,4));
+        expectedGrid = new Grid(Direction.NORTH, new Coordinate(0,4));
 
         actualGrid = commandFactory.run(List.of(CommandType.MOVE, CommandType.MOVE, CommandType.MOVE, CommandType.MOVE));
 
         assertEquals(expectedGrid, actualGrid);
+    }
+
+    @Test
+    void move_with_an_obstacle() {
+        Obstacle obstacle = new Obstacle(0,3);
+        CommandFactory commandFactory = new CommandFactory(obstacle);
+        List<CommandType> commands = List.of(CommandType.MOVE, CommandType.MOVE, CommandType.MOVE, CommandType.MOVE);
+
+        assertThrows(EncounteredObstacleException.class, () -> commandFactory.run(commands));
     }
 }

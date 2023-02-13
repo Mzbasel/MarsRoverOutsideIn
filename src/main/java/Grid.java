@@ -1,13 +1,12 @@
 import java.util.Objects;
 
-public record Grid(Direction direction, Coordinates coordinates) {
-
+public record Grid(Direction direction, Coordinate coordinate) {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Grid grid = (Grid) o;
-        return direction == grid.direction && Objects.equals(coordinates, grid.coordinates);
+        return direction == grid.direction && Objects.equals(coordinate, grid.coordinate);
     }
 
 }

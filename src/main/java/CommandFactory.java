@@ -6,10 +6,17 @@ public class CommandFactory {
     private final Map<CommandType, Command> commands;
 
     public CommandFactory() {
-        grid = new Grid(Direction.NORTH, new Coordinates(0,0));
+        grid = new Grid(Direction.NORTH, new Coordinate(0,0));
         commands = Map.of(CommandType.ROTATE_RIGHT, new RotateRight(),
                 CommandType.ROTATE_LEFT, new RotateLeft(),
                 CommandType.MOVE, new Move());
+    }
+
+    public CommandFactory(Obstacle obstacle) {
+        grid = new Grid(Direction.NORTH, new Coordinate(0,0));
+        commands = Map.of(CommandType.ROTATE_RIGHT, new RotateRight(),
+                CommandType.ROTATE_LEFT, new RotateLeft(),
+                CommandType.MOVE, new Move(obstacle));
     }
 
     public Grid run(List<CommandType> commandTypeList) {

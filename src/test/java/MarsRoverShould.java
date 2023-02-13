@@ -1,18 +1,13 @@
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class MarsRoverShould {
@@ -62,7 +57,7 @@ class MarsRoverShould {
         //given
         commands = "R";
         commandTypeList = List.of(CommandType.ROTATE_RIGHT);
-        Grid expectedGrid = new Grid(Direction.EAST, new Coordinates(0,0));
+        Grid expectedGrid = new Grid(Direction.EAST, new Coordinate(0,0));
         given(commandParser.parse(commands)).willReturn(commandTypeList);
         given(commandFactory.run(commandTypeList)).willReturn(expectedGrid);
 

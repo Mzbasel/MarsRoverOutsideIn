@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class RotateLeftShould {
 
     private RotateLeft rotateLeft;
-    private Grid grid, actualGrid, expectedGrid;
 
     @BeforeEach
     public void setup() {
@@ -29,10 +28,10 @@ class RotateLeftShould {
     @ParameterizedTest
     @MethodSource("getDirections")
     public void rotate_right_when_given_is_north_it_should_return_east(Direction startingDirection, Direction currentDirection){
-        grid = new Grid(startingDirection, new Coordinates(0,0));
-        expectedGrid = new Grid(currentDirection, new Coordinates(0,0));
+        Grid grid = new Grid(startingDirection, new Coordinate(0, 0));
+        Grid expectedGrid = new Grid(currentDirection, new Coordinate(0, 0));
 
-        actualGrid = rotateLeft.execute(grid);
+        Grid actualGrid = rotateLeft.execute(grid);
 
         assertEquals(expectedGrid, actualGrid);
     }
