@@ -15,7 +15,7 @@ class GridShould {
     @Test
     void wrap_up_from_south() {
         Grid grid = new Grid(Direction.SOUTH, new Coordinate(0,-1));
-        Grid expectedGrid = new Grid(Direction.SOUTH, new Coordinate(0,0));
+        Grid expectedGrid = new Grid(Direction.SOUTH, new Coordinate(0,9));
 
         assertEquals(expectedGrid, grid);
     }
@@ -31,7 +31,7 @@ class GridShould {
     @Test
     void wrap_up_from_west() {
         Grid grid = new Grid(Direction.WEST, new Coordinate(-1,0));
-        Grid expectedGrid = new Grid(Direction.WEST, new Coordinate(0,0));
+        Grid expectedGrid = new Grid(Direction.WEST, new Coordinate(9,0));
 
         assertEquals(expectedGrid, grid);
     }

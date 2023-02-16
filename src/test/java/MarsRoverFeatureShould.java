@@ -44,7 +44,7 @@ public class MarsRoverFeatureShould {
 
         Grid actualGrid = marsRover.execute(commands);
 
-        Grid expectedGrid = new Grid(Direction.WEST, new Coordinate(0,5));
+        Grid expectedGrid = new Grid(Direction.WEST, new Coordinate(8,5));
 
         assertEquals(expectedGrid, actualGrid);
     }
